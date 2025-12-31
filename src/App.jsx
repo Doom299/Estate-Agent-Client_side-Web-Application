@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import propertyData from "./data/properties.json";
+import SearchForm from "./components/SearchForm";
+import PropertyList from "./components/PropertyList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [properties] = useState(propertyData.properties);
+  const [filteredProperties, setFilteredProperties] = useState(
+    propertyData.properties
+  );
+
+  const monthToNumber = (month) => new Date(`${month} 1, 2000`).getMonth() + 1;
+
+  const handleFilter = (filters) => {
+    const postcodeFilter = filters.postcode.trim().toUpperCase();
+
+    const result = properties.filter((prop) => {
+      const propDate = new Date(
+        `${prop.added.year}-${monthToNumber(prop.added.month)}-${
+          prop.added.day
+        }`
+      );
+
+      return (
+        (!filters.type || prop.type === filters.type) &&
+        prop.price >= (filters.minPrice || 0) &&
+        prop.price <= (filters.maxPrice || Infinity) &&
+        prop.bedrooms >= (filters.minBedrooms || 0) &&
+        prop.bedrooms <= (filters.maxBedrooms || Infinity) &&
+        (!filters.dateFrom || propDate >= new Date(filters.dateFrom)) &&
+        (!filters.dateTo || propDate <= new Date(filters.dateTo)) &&
+        (!postcodeFilter ||
+          prop.location.toUpperCase().split(" ").includes(postcodeFilter))
+      );
+    });
+
+    setFilteredProperties(result);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div>
+      <h1>Property Search</h1>
+
+      <SearchForm onFilter={handleFilter} />
+
+      {/* PROPERTY COUNT */}
+      <p>
+        <strong>Showing {filteredProperties.length} properties</strong>
       </p>
-    </>
-  )
+
+      <PropertyList properties={filteredProperties} />
+    </div>
+  );
 }
 
-export default App
+export default App;
