@@ -2,15 +2,20 @@ import { useState } from "react";
 import propertyData from "./data/properties.json";
 import SearchForm from "./components/SearchForm";
 import PropertyList from "./components/PropertyList";
+import Favourites from "./components/Favourites";
 
 function App() {
   const [properties] = useState(propertyData.properties);
   const [filteredProperties, setFilteredProperties] = useState(
     propertyData.properties
   );
+  const [favourites, setFavourites] = useState([]); // Favourites state
+  const [draggedProperty, setDraggedProperty] = useState(null); // Track dragged property
 
+  // Convert month name to number
   const monthToNumber = (month) => new Date(`${month} 1, 2000`).getMonth() + 1;
 
+  // FILTER FUNCTION
   const handleFilter = (filters) => {
     const postcodeFilter = filters.postcode.trim().toUpperCase();
 
@@ -37,18 +42,57 @@ function App() {
     setFilteredProperties(result);
   };
 
+  // ADD TO FAVOURITES (button or drag)
+  const addToFavourites = (property) => {
+    setFavourites((prev) => {
+      if (prev.some((p) => p.id === property.id)) return prev; // prevent duplicates
+      return [...prev, property];
+    });
+  };
+
+  // REMOVE ONE FAVOURITE
+  const removeFromFavourites = (id) => {
+    setFavourites((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  // CLEAR ALL FAVOURITES
+  const clearFavourites = () => {
+    setFavourites([]);
+  };
+
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Property Search</h1>
 
-      <SearchForm onFilter={handleFilter} />
+      <div style={{ display: "flex", gap: "20px" }}>
+        {/* LEFT SIDE: Search + Property List */}
+        <div style={{ flex: 3 }}>
+          <SearchForm onFilter={handleFilter} />
+          <p>
+            Showing <strong>{filteredProperties.length}</strong> properties
+          </p>
 
-      {/* PROPERTY COUNT */}
-      <p>
-        <strong>Showing {filteredProperties.length} properties</strong>
-      </p>
+          <PropertyList
+            properties={filteredProperties}
+            onAddFavourite={addToFavourites} // Button click adds to favourites
+            onDragStart={setDraggedProperty} // Dragging tracks the property
+          />
+        </div>
 
-      <PropertyList properties={filteredProperties} />
+        {/* RIGHT SIDE: Favourites Sidebar */}
+        <div style={{ flex: 1 }}>
+          <Favourites
+            favourites={favourites}
+            draggedProperty={draggedProperty}
+            onDropAdd={(prop) => {
+              addToFavourites(prop);
+              setDraggedProperty(null); // reset after drop
+            }}
+            onRemove={removeFromFavourites}
+            onClear={clearFavourites}
+          />
+        </div>
+      </div>
     </div>
   );
 }

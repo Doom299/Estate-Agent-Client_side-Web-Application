@@ -1,14 +1,18 @@
-function PropertyList({ properties }) {
-  if (properties.length === 0) {
-    return <p>No properties found.</p>;
-  }
+function PropertyList({ properties, onAddFavourite, onDragStart }) {
+  if (properties.length === 0) return <p>No properties found.</p>;
 
   return (
     <div>
       {properties.map((prop) => (
         <div
           key={prop.id}
-          style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}
+          draggable
+          onDragStart={() => onDragStart(prop)} // Track drag start
+          style={{
+            border: "1px solid #ccc",
+            margin: "10px",
+            padding: "10px",
+          }}
         >
           <h3>
             <a href={prop.url}>
@@ -24,6 +28,21 @@ function PropertyList({ properties }) {
           </p>
           <img src={prop.picture} alt={prop.type} width="200" />
           <p>{prop.description}</p>
+
+          {/* ❤️ Button to add directly to favourites */}
+          <button
+            onClick={() => onAddFavourite(prop)} // Add property to favourites
+            style={{
+              backgroundColor: "#ff6666",
+              color: "white",
+              border: "none",
+              padding: "5px 10px",
+              cursor: "pointer",
+              marginTop: "10px",
+            }}
+          >
+            ❤️ Add to Favourites
+          </button>
         </div>
       ))}
     </div>
