@@ -3,6 +3,8 @@ import propertyData from "./data/properties.json";
 import SearchForm from "./components/SearchForm";
 import PropertyList from "./components/PropertyList";
 import Favourites from "./components/Favourites";
+import { Routes, Route } from "react-router-dom";
+import PropertyPage from "./components/PropertyPage";
 
 function App() {
   const [properties] = useState(propertyData.properties);
@@ -61,38 +63,46 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Property Search</h1>
+    <div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div style={{ display: "flex", gap: "20px" }}>
+              <div style={{ flex: 3 }}>
+                <SearchForm onFilter={handleFilter} />
+                <p>
+                  Showing <strong>{filteredProperties.length}</strong>{" "}
+                  properties
+                </p>
+                <PropertyList
+                  properties={filteredProperties}
+                  onAddFavourite={addToFavourites}
+                  onDragStart={setDraggedProperty}
+                />
+              </div>
 
-      <div style={{ display: "flex", gap: "20px" }}>
-        {/* LEFT SIDE: Search + Property List */}
-        <div style={{ flex: 3 }}>
-          <SearchForm onFilter={handleFilter} />
-          <p>
-            Showing <strong>{filteredProperties.length}</strong> properties
-          </p>
+              <div style={{ flex: 1 }}>
+                <Favourites
+                  favourites={favourites}
+                  draggedProperty={draggedProperty}
+                  onDropAdd={(prop) => {
+                    addToFavourites(prop);
+                    setDraggedProperty(null);
+                  }}
+                  onRemove={removeFromFavourites}
+                  onClear={clearFavourites}
+                />
+              </div>
+            </div>
+          }
+        />
 
-          <PropertyList
-            properties={filteredProperties}
-            onAddFavourite={addToFavourites} // Button click adds to favourites
-            onDragStart={setDraggedProperty} // Dragging tracks the property
-          />
-        </div>
-
-        {/* RIGHT SIDE: Favourites Sidebar */}
-        <div style={{ flex: 1 }}>
-          <Favourites
-            favourites={favourites}
-            draggedProperty={draggedProperty}
-            onDropAdd={(prop) => {
-              addToFavourites(prop);
-              setDraggedProperty(null); // reset after drop
-            }}
-            onRemove={removeFromFavourites}
-            onClear={clearFavourites}
-          />
-        </div>
-      </div>
+        <Route
+          path="/property/:id"
+          element={<PropertyPage properties={properties} />}
+        />
+      </Routes>
     </div>
   );
 }

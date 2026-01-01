@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function PropertyList({ properties, onAddFavourite, onDragStart }) {
   if (properties.length === 0) return <p>No properties found.</p>;
 
@@ -43,6 +45,20 @@ function PropertyList({ properties, onAddFavourite, onDragStart }) {
           >
             ❤️ Add to Favourites
           </button>
+
+          <Link to={`/property/${prop.id}`}>
+            <button
+              style={{
+                backgroundColor: "#007bff",
+                color: "white",
+                border: "none",
+                padding: "5px 10px",
+                cursor: "pointer",
+              }}
+            >
+              🔍 View Details
+            </button>
+          </Link>
         </div>
       ))}
     </div>
