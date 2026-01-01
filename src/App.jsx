@@ -103,7 +103,14 @@ function App() {
 
         <Route
           path="/property/:id"
-          element={<PropertyPage properties={properties} />}
+          element={
+            <PropertyPage
+              properties={properties}
+              favourites={favourites}
+              onAddFavourite={addToFavourites}
+              onRemoveFavourite={removeFromFavourites}
+            />
+          }
         />
       </Routes>
       <Footer /> {/* Footer always visible */}
