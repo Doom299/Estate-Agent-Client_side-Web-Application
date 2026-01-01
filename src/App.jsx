@@ -5,6 +5,8 @@ import PropertyList from "./components/PropertyList";
 import Favourites from "./components/Favourites";
 import { Routes, Route } from "react-router-dom";
 import PropertyPage from "./components/PropertyPage";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   const [properties] = useState(propertyData.properties);
@@ -64,6 +66,7 @@ function App() {
 
   return (
     <div>
+      <Header /> {/* Header always visible */}
       <Routes>
         <Route
           path="/"
@@ -103,6 +106,7 @@ function App() {
           element={<PropertyPage properties={properties} />}
         />
       </Routes>
+      <Footer /> {/* Footer always visible */}
     </div>
   );
 }
