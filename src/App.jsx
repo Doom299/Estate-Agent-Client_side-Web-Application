@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import PropertyPage from "./components/PropertyPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
   const [properties] = useState(propertyData.properties);
@@ -65,7 +66,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <Header /> {/* Header always visible */}
       <Routes>
         <Route
@@ -74,7 +75,7 @@ function App() {
             <div style={{ display: "flex", gap: "20px" }}>
               <div style={{ flex: 3 }}>
                 <SearchForm onFilter={handleFilter} />
-                <p>
+                <p className="results-count">
                   Showing <strong>{filteredProperties.length}</strong>{" "}
                   properties
                 </p>

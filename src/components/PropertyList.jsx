@@ -1,64 +1,46 @@
 import { Link } from "react-router-dom";
+import "../styles/PropertyList.css";
 
 function PropertyList({ properties, onAddFavourite, onDragStart }) {
-  if (properties.length === 0) return <p>No properties found.</p>;
+  if (properties.length === 0) {
+    return <p>No properties found.</p>;
+  }
 
   return (
-    <div>
+    <div className="property-grid">
       {properties.map((prop) => (
         <div
           key={prop.id}
+          className="property-card"
           draggable
-          onDragStart={() => onDragStart(prop)} // Track drag start
-          style={{
-            border: "1px solid #ccc",
-            margin: "10px",
-            padding: "10px",
-          }}
+          onDragStart={() => onDragStart(prop)}
         >
-          <h3>
-            <a href={prop.url}>
-              {prop.type} – £{prop.price.toLocaleString()}
-            </a>
-          </h3>
-          <p>
-            {prop.bedrooms} bedrooms | {prop.tenure}
-          </p>
-          <p>{prop.location}</p>
-          <p>
-            Added: {prop.added.day} {prop.added.month} {prop.added.year}
-          </p>
-          <img src={prop.picture} alt={prop.type} width="200" />
-          <p>{prop.description}</p>
+          <img src={prop.picture} alt={prop.type} className="property-image" />
 
-          {/* ❤️ Button to add directly to favourites */}
-          <button
-            onClick={() => onAddFavourite(prop)} // Add property to favourites
-            style={{
-              backgroundColor: "#ff6666",
-              color: "white",
-              border: "none",
-              padding: "5px 10px",
-              cursor: "pointer",
-              marginTop: "10px",
-            }}
-          >
-            ❤️ Add to Favourites
-          </button>
+          <div className="property-content">
+            <h3>
+              £{prop.price.toLocaleString()}
+              <span>{prop.type}</span>
+            </h3>
 
-          <Link to={`/property/${prop.id}`}>
-            <button
-              style={{
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                padding: "5px 10px",
-                cursor: "pointer",
-              }}
-            >
-              🔍 View Details
-            </button>
-          </Link>
+            <p className="property-location">{prop.location}</p>
+
+            <p className="property-meta">
+              🛏 {prop.bedrooms} bedrooms • {prop.tenure}
+            </p>
+
+            <div className="property-actions">
+              {/* Add to Favourites Button */}
+              <button className="fav-btn" onClick={() => onAddFavourite(prop)}>
+                ❤️ Favourite
+              </button>
+
+              {/* View Details Button using React Router Link */}
+              <Link className="details-btn" to={`/property/${prop.id}`}>
+                View Details →
+              </Link>
+            </div>
+          </div>
         </div>
       ))}
     </div>
