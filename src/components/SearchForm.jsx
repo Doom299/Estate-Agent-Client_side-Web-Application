@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/SearchForm.css";
 
 function SearchForm({ onFilter }) {
   const [filters, setFilters] = useState({
@@ -13,8 +14,7 @@ function SearchForm({ onFilter }) {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prev) => ({ ...prev, [name]: value }));
+    setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
@@ -23,57 +23,65 @@ function SearchForm({ onFilter }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Property Type
-        <select name="type" value={filters.type} onChange={handleChange}>
-          <option value="">Any</option>
-          <option value="House">House</option>
-          <option value="Flat">Flat</option>
-        </select>
-      </label>
+    <form className="search-form" onSubmit={handleSubmit}>
+      <h2>Search Properties</h2>
 
-      <label>
-        Minimum Price
-        <input type="number" name="minPrice" onChange={handleChange} />
-      </label>
+      <div className="form-grid">
+        <div className="form-group">
+          <label>Property Type</label>
+          <select name="type" onChange={handleChange}>
+            <option value="">Any</option>
+            <option value="House">House</option>
+            <option value="Flat">Flat</option>
+          </select>
+        </div>
 
-      <label>
-        Maximum Price
-        <input type="number" name="maxPrice" onChange={handleChange} />
-      </label>
+        <div className="form-group">
+          <label>Min Price (£)</label>
+          <input type="number" name="minPrice" onChange={handleChange} />
+        </div>
 
-      <label>
-        Minimum Bedrooms
-        <input type="number" name="minBedrooms" onChange={handleChange} />
-      </label>
+        <div className="form-group">
+          <label>Max Price (£)</label>
+          <input type="number" name="maxPrice" onChange={handleChange} />
+        </div>
 
-      <label>
-        Maximum Bedrooms
-        <input type="number" name="maxBedrooms" onChange={handleChange} />
-      </label>
+        <div className="form-group">
+          <label>Min Bedrooms</label>
+          <input type="number" name="minBedrooms" onChange={handleChange} />
+        </div>
 
-      <label>
-        Date From
-        <input type="date" name="dateFrom" onChange={handleChange} />
-      </label>
+        <div className="form-group">
+          <label>Max Bedrooms</label>
+          <input type="number" name="maxBedrooms" onChange={handleChange} />
+        </div>
 
-      <label>
-        Date To
-        <input type="date" name="dateTo" onChange={handleChange} />
-      </label>
+        <div className="form-group">
+          <label>Date From</label>
+          <input type="date" name="dateFrom" onChange={handleChange} />
+        </div>
 
-      <label>
-        Postcode Area (e.g. BR5)
-        <input
-          type="text"
-          name="postcode"
-          placeholder="BR5"
-          onChange={handleChange}
-        />
-      </label>
+        <div className="form-group">
+          <label>Date To</label>
+          <input type="date" name="dateTo" onChange={handleChange} />
+        </div>
 
-      <button type="submit">Filter</button>
+        <div className="form-group">
+          <label>
+            Postcode Area <span>(e.g. BR1, BR5)</span>
+          </label>
+          <input
+            type="text"
+            name="postcode"
+            placeholder="BR1"
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <button className="filter-btn" type="submit">
+        🔍 Filter Properties
+      </button>
     </form>
   );
 }
