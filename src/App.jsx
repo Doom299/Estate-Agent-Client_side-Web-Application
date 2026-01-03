@@ -11,11 +11,9 @@ import "./App.css";
 
 function App() {
   const [properties] = useState(propertyData.properties);
-  const [filteredProperties, setFilteredProperties] = useState(
-    propertyData.properties
-  );
-  const [favourites, setFavourites] = useState([]); // Favourites state
-  const [draggedProperty, setDraggedProperty] = useState(null); // Track dragged property
+  const [filteredProperties, setFilteredProperties] = useState(properties);
+  const [favourites, setFavourites] = useState([]);
+  const [draggedProperty, setDraggedProperty] = useState(null);
 
   // Convert month name to number
   const monthToNumber = (month) => new Date(`${month} 1, 2000`).getMonth() + 1;
@@ -50,7 +48,7 @@ function App() {
   // ADD TO FAVOURITES (button or drag)
   const addToFavourites = (property) => {
     setFavourites((prev) => {
-      if (prev.some((p) => p.id === property.id)) return prev; // prevent duplicates
+      if (prev.some((p) => p.id === property.id)) return prev;
       return [...prev, property];
     });
   };
@@ -66,56 +64,65 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Header /> {/* Header always visible */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div style={{ display: "flex", gap: "20px" }}>
-              <div style={{ flex: 3 }}>
-                <SearchForm onFilter={handleFilter} />
-                <p className="results-count">
-                  Showing <strong>{filteredProperties.length}</strong>{" "}
-                  properties
-                </p>
-                <PropertyList
-                  properties={filteredProperties}
-                  onAddFavourite={addToFavourites}
-                  onDragStart={setDraggedProperty}
-                />
-              </div>
+    <>
+      <Header />
+      <div className="app-container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="home-page">
+                {/* Search Box */}
+                <div className="search-section">
+                  <SearchForm onFilter={handleFilter} />
+                  <p className="results-count">
+                    Showing <strong>{filteredProperties.length}</strong>{" "}
+                    properties
+                  </p>
+                </div>
 
-              <div style={{ flex: 1 }}>
-                <Favourites
-                  favourites={favourites}
-                  draggedProperty={draggedProperty}
-                  onDropAdd={(prop) => {
-                    addToFavourites(prop);
-                    setDraggedProperty(null);
-                  }}
-                  onRemove={removeFromFavourites}
-                  onClear={clearFavourites}
-                />
-              </div>
-            </div>
-          }
-        />
+                {/* Property List + Favourites side by side */}
+                <div className="content-section">
+                  <div className="propertylist-column">
+                    <PropertyList
+                      properties={filteredProperties}
+                      onAddFavourite={addToFavourites}
+                      onDragStart={setDraggedProperty}
+                    />
+                  </div>
 
-        <Route
-          path="/property/:id"
-          element={
-            <PropertyPage
-              properties={properties}
-              favourites={favourites}
-              onAddFavourite={addToFavourites}
-              onRemoveFavourite={removeFromFavourites}
-            />
-          }
-        />
-      </Routes>
-      <Footer /> {/* Footer always visible */}
-    </div>
+                  <div className="favourites-column">
+                    <Favourites
+                      favourites={favourites}
+                      draggedProperty={draggedProperty}
+                      onDropAdd={(prop) => {
+                        addToFavourites(prop);
+                        setDraggedProperty(null);
+                      }}
+                      onRemove={removeFromFavourites}
+                      onClear={clearFavourites}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+
+          <Route
+            path="/property/:id"
+            element={
+              <PropertyPage
+                properties={properties}
+                favourites={favourites}
+                onAddFavourite={addToFavourites}
+                onRemoveFavourite={removeFromFavourites}
+              />
+            }
+          />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   );
 }
 

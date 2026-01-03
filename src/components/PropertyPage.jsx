@@ -4,6 +4,7 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import "../styles/PropertyPage.css";
 
 function PropertyPage({
   properties,
@@ -14,69 +15,63 @@ function PropertyPage({
   const { id } = useParams();
   const property = properties.find((p) => p.id === id);
 
-  if (!property) return <p>Property not found</p>;
+  if (!property) return <p className="not-found">Property not found</p>;
 
   const isFavourite = favourites.some((p) => p.id === property.id);
 
-  // Gallery images (duplicate placeholder for now)
-  const images = Array(8).fill({
-    original: property.picture,
-    thumbnail: property.picture,
-  });
+  const images = property.gallery
+    ? property.gallery.map((img) => ({
+        original: `/${img}`,
+        thumbnail: `/${img}`,
+      }))
+    : [
+        {
+          original: `/${property.picture}`,
+          thumbnail: `/${property.picture}`,
+        },
+      ];
 
   return (
-    <div style={{ padding: "20px" }}>
-      <Link to="/">← Back to Search</Link>
+    <div className="property-page">
+      <Link to="/" className="back-link">
+        ← Back to Search
+      </Link>
 
-      <h1>
+      <h1 className="property-title">
         {property.type} – £{property.price.toLocaleString()}
       </h1>
-      <p>{property.location}</p>
+      <p className="property-location">{property.location}</p>
 
       {/* ACTION BUTTONS */}
-      <div style={{ display: "flex", gap: "15px", marginBottom: "20px" }}>
-        {/* BOOK BUTTON */}
+      <div className="action-buttons">
         <button
+          className="book-btn"
           onClick={() =>
             alert(`You have booked ${property.type} at ${property.location}`)
           }
-          style={{
-            backgroundColor: "#28a745",
-            color: "white",
-            border: "none",
-            padding: "10px 16px",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
         >
           📅 Book This Property
         </button>
 
-        {/* FAVOURITE TOGGLE BUTTON */}
         <button
+          className={`fav-toggle-btn ${isFavourite ? "remove" : "add"}`}
           onClick={() =>
             isFavourite
               ? onRemoveFavourite(property.id)
               : onAddFavourite(property)
           }
-          style={{
-            backgroundColor: isFavourite ? "#dc3545" : "#ff9800",
-            color: "white",
-            border: "none",
-            padding: "10px 16px",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
         >
           {isFavourite ? "💔 Remove from Favourites" : "❤️ Add to Favourites"}
         </button>
       </div>
 
       {/* IMAGE GALLERY */}
-      <ImageGallery items={images} showPlayButton={false} />
+      <div className="gallery-wrapper">
+        <ImageGallery items={images} showPlayButton={false} />
+      </div>
 
       {/* TABS */}
-      <Tabs>
+      <Tabs className="property-tabs">
         <TabList>
           <Tab>Description</Tab>
           <Tab>Floor Plan</Tab>
@@ -84,26 +79,25 @@ function PropertyPage({
         </TabList>
 
         <TabPanel>
-          <h3>Full Description</h3>
-          <p>{property.description}</p>
+          <p className="description-text">{property.description}</p>
         </TabPanel>
 
         <TabPanel>
-          <h3>Floor Plan</h3>
-          <img
-            src={property.picture}
-            alt="Floor Plan"
-            style={{ maxWidth: "600px", width: "100%" }}
-          />
+          {property.floorPlan ? (
+            <img
+              src={`/${property.floorPlan}`}
+              alt="Floor Plan"
+              className="floor-plan"
+            />
+          ) : (
+            <p>No floor plan available.</p>
+          )}
         </TabPanel>
 
         <TabPanel>
-          <h3>Location Map</h3>
           <iframe
             title="Google Map"
-            width="100%"
-            height="400"
-            style={{ border: 0 }}
+            className="map-frame"
             loading="lazy"
             allowFullScreen
             src={`https://www.google.com/maps?q=${encodeURIComponent(

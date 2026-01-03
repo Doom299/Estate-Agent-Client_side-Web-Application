@@ -15,7 +15,11 @@ function PropertyList({ properties, onAddFavourite, onDragStart }) {
           draggable
           onDragStart={() => onDragStart(prop)}
         >
-          <img src={prop.picture} alt={prop.type} className="property-image" />
+          <img
+            src={`/${prop.picture}`}
+            alt={prop.type}
+            className="property-image"
+          />
 
           <div className="property-content">
             <h3>

@@ -1,3 +1,5 @@
+import "../styles/Favourites.css";
+
 function Favourites({
   favourites,
   draggedProperty,
@@ -7,33 +9,22 @@ function Favourites({
 }) {
   return (
     <aside
-      onDragOver={(e) => e.preventDefault()} // allow drop
+      className="favourites-container"
+      onDragOver={(e) => e.preventDefault()}
       onDrop={() => {
         if (draggedProperty) onDropAdd(draggedProperty);
       }}
-      style={{
-        border: "2px solid #333",
-        padding: "10px",
-        width: "300px",
-        minHeight: "200px",
-      }}
     >
-      <h2>
+      <h2 className="favourites-header">
         Favourites
-        <span
-          style={{
-            backgroundColor: "red",
-            color: "white",
-            borderRadius: "50%",
-            padding: "4px 8px",
-            marginLeft: "10px",
-          }}
-        >
-          {favourites.length}
-        </span>
+        <span className="favourites-count">{favourites.length}</span>
       </h2>
 
-      {favourites.length === 0 && <p>Drag properties here to add favourites</p>}
+      {favourites.length === 0 && (
+        <p className="favourites-empty">
+          Drag properties here to add favourites
+        </p>
+      )}
 
       {favourites.map((prop) => (
         <div
@@ -44,21 +35,19 @@ function Favourites({
             draggedProperty = prop;
           }}
           onDragEnd={() => onRemove(prop.id)}
-          style={{
-            border: "1px solid #aaa",
-            marginBottom: "5px",
-            padding: "5px",
-          }}
+          className="favourite-item"
         >
-          <p>
+          <p className="favourite-title">
             {prop.type} – £{prop.price.toLocaleString()}
           </p>
-          <button onClick={() => onRemove(prop.id)}>❌ Remove</button>
+          <button className="remove-btn" onClick={() => onRemove(prop.id)}>
+            ❌ Remove
+          </button>
         </div>
       ))}
 
       {favourites.length > 0 && (
-        <button onClick={onClear} style={{ marginTop: "10px" }}>
+        <button className="clear-btn" onClick={onClear}>
           🗑 Clear All
         </button>
       )}
