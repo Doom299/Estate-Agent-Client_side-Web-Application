@@ -4,6 +4,7 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { Calendar, Heart, ArrowLeft, Bed } from "lucide-react";
 import "../styles/PropertyPage.css";
 
 function PropertyPage({
@@ -34,7 +35,7 @@ function PropertyPage({
   return (
     <div className="property-page">
       <Link to="/" className="back-link">
-        ← Back to Search
+        <ArrowLeft size={18} /> Back to Search
       </Link>
 
       <h1 className="property-title">
@@ -42,15 +43,15 @@ function PropertyPage({
       </h1>
       <p className="property-location">{property.location}</p>
 
-      {/* ACTION BUTTONS */}
-      <div className="action-buttons">
+      {/* ACTION BUTTONS - Desktop Only */}
+      <div className="action-buttons desktop-only">
         <button
           className="book-btn"
           onClick={() =>
             alert(`You have booked ${property.type} at ${property.location}`)
           }
         >
-          📅 Book This Property
+          <Calendar size={18} /> Book This Property
         </button>
 
         <button
@@ -61,7 +62,8 @@ function PropertyPage({
               : onAddFavourite(property)
           }
         >
-          {isFavourite ? "💔 Remove from Favourites" : "❤️ Add to Favourites"}
+          <Heart size={18} fill={isFavourite ? "currentColor" : "none"} />
+          {isFavourite ? " Remove from Favourites" : " Add to Favourites"}
         </button>
       </div>
 
@@ -79,7 +81,40 @@ function PropertyPage({
         </TabList>
 
         <TabPanel>
-          <p className="description-text">{property.description}</p>
+          {/* Mobile: Property Details at Top */}
+          <div className="property-details mobile-only">
+            <div className="detail-item">
+              <Bed size={20} />
+              <span>
+                <strong>{property.bedrooms}</strong> Bedrooms
+              </span>
+            </div>
+            <div className="detail-item">
+              <span>
+                <strong>Tenure:</strong> {property.tenure}
+              </span>
+            </div>
+          </div>
+
+          <div className="description-container">
+            <p className="description-text">{property.description}</p>
+
+            {/* Desktop: Property Details Sidebar */}
+            <div className="property-details desktop-only">
+              <h3>Property Details</h3>
+              <div className="detail-item">
+                <Bed size={20} />
+                <span>
+                  <strong>{property.bedrooms}</strong> Bedrooms
+                </span>
+              </div>
+              <div className="detail-item">
+                <span>
+                  <strong>Tenure:</strong> {property.tenure}
+                </span>
+              </div>
+            </div>
+          </div>
         </TabPanel>
 
         <TabPanel>
@@ -106,6 +141,30 @@ function PropertyPage({
           />
         </TabPanel>
       </Tabs>
+
+      {/* ACTION BUTTONS - Mobile Only (Bottom of Page) */}
+      <div className="action-buttons mobile-only mobile-bottom">
+        <button
+          className="book-btn"
+          onClick={() =>
+            alert(`You have booked ${property.type} at ${property.location}`)
+          }
+        >
+          <Calendar size={18} /> Book This Property
+        </button>
+
+        <button
+          className={`fav-toggle-btn ${isFavourite ? "remove" : "add"}`}
+          onClick={() =>
+            isFavourite
+              ? onRemoveFavourite(property.id)
+              : onAddFavourite(property)
+          }
+        >
+          <Heart size={18} fill={isFavourite ? "currentColor" : "none"} />
+          {isFavourite ? " Remove from Favourites" : " Add to Favourites"}
+        </button>
+      </div>
     </div>
   );
 }
