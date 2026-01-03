@@ -20,7 +20,8 @@ function App() {
 
   // FILTER FUNCTION
   const handleFilter = (filters) => {
-    const postcodeFilter = filters.postcode.trim().toUpperCase();
+    const searchText = (filters.searchQuery || "").trim().toUpperCase();
+    const postcodeText = (filters.postcode || "").trim().toUpperCase();
 
     const result = properties.filter((prop) => {
       const propDate = new Date(
@@ -28,6 +29,16 @@ function App() {
           prop.added.day
         }`
       );
+
+      // Check if search text matches location OR description
+      const matchesSearch =
+        !searchText ||
+        prop.location.toUpperCase().includes(searchText) ||
+        prop.description.toUpperCase().includes(searchText);
+
+      // Check if postcode matches location
+      const matchesPostcode =
+        !postcodeText || prop.location.toUpperCase().includes(postcodeText);
 
       return (
         (!filters.type || prop.type === filters.type) &&
@@ -37,8 +48,8 @@ function App() {
         prop.bedrooms <= (filters.maxBedrooms || Infinity) &&
         (!filters.dateFrom || propDate >= new Date(filters.dateFrom)) &&
         (!filters.dateTo || propDate <= new Date(filters.dateTo)) &&
-        (!postcodeFilter ||
-          prop.location.toUpperCase().split(" ").includes(postcodeFilter))
+        matchesSearch &&
+        matchesPostcode
       );
     });
 
@@ -86,7 +97,9 @@ function App() {
                   <div className="propertylist-column">
                     <PropertyList
                       properties={filteredProperties}
+                      favourites={favourites}
                       onAddFavourite={addToFavourites}
+                      onRemoveFavourite={removeFromFavourites}
                       onDragStart={setDraggedProperty}
                     />
                   </div>

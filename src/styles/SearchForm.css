@@ -5,26 +5,142 @@
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   margin-bottom: 25px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* SEARCH HEADER */
+.search-header {
+  margin-bottom: 20px;
 }
 
 /* TITLE */
 .search-form h2 {
-  margin-bottom: 25px;
+  margin: 0;
   color: #1f2933;
   font-weight: 700;
+}
+
+/* TOGGLE FILTERS BUTTON */
+.toggle-filters-btn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 45px;
+}
+
+.toggle-filters-btn:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* MAIN SEARCH BAR */
+.main-search-bar {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-query-input {
+  flex: 1;
+  min-width: 200px;
+  box-sizing: border-box;
+}
+
+/* ADVANCED FILTERS */
+.advanced-filters {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
 }
 
 /* GRID */
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Desktop: 4x2 grid layout */
+@media (min-width: 769px) {
+  .form-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Row 1: Property Type, Postcode, Min Price, Max Price */
+  .form-grid > .form-group:nth-child(1) {
+    grid-column: 1 / 2;
+    grid-row: 1;
+  }
+  .form-grid > .form-group:nth-child(8) {
+    grid-column: 2 / 3;
+    grid-row: 1;
+  }
+  .form-grid > .form-group:nth-child(2) {
+    grid-column: 3 / 4;
+    grid-row: 1;
+  }
+  .form-grid > .form-group:nth-child(3) {
+    grid-column: 4 / 5;
+    grid-row: 1;
+  }
+
+  /* Row 2: Min Bedrooms, Max Bedrooms, Date From, Date To */
+  .form-grid > .form-group:nth-child(4) {
+    grid-column: 1 / 2;
+    grid-row: 2;
+  }
+  .form-grid > .form-group:nth-child(5) {
+    grid-column: 2 / 3;
+    grid-row: 2;
+  }
+  .form-grid > .form-group:nth-child(6) {
+    grid-column: 3 / 4;
+    grid-row: 2;
+  }
+  .form-grid > .form-group:nth-child(7) {
+    grid-column: 4 / 5;
+    grid-row: 2;
+  }
 }
 
 /* FIELD GROUP */
 .form-group {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* LABEL */
@@ -48,13 +164,259 @@
   border-radius: 8px;
   border: 1.8px solid #d1d5db;
   font-size: 14px;
-
-  /* 🔥 FIXED VISIBILITY */
-  color: #111827; /* Dark readable text */
-  caret-color: #2563eb; /* Cursor color */
-
+  color: #111827;
   background-color: #ffffff;
-  transition: all 0.25s ease;
+  transition: all 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+  width: 100%;
+  min-width: 0;
+}
+
+/* DATE INPUT SPECIFIC STYLING */
+.search-form input[type="date"] {
+  position: relative;
+  padding: 11px 12px;
+  cursor: pointer;
+}
+
+.search-form input[type="date"]::-webkit-calendar-picker-indicator {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%232563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>')
+    no-repeat center;
+  background-size: 18px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+
+.search-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.search-form input[type="date"]::-webkit-datetime-edit {
+  padding: 0;
+}
+
+.search-form input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}
+
+.search-form input[type="date"]::-webkit-datetime-edit-text {
+  color: #6b7280;
+  padding: 0 2px;
+}
+
+.search-form input[type="date"]::-webkit-datetime-edit-month-field,
+.search-form input[type="date"]::-webkit-datetime-edit-day-field,
+.search-form input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #111827;
+  font-weight: 500;
+}
+
+/* CALENDAR POPUP STYLING */
+.search-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: brightness(0) saturate(100%) invert(32%) sepia(88%) saturate(2370%)
+    hue-rotate(210deg) brightness(98%) contrast(91%);
+  width: 20px;
+  height: 20px;
+}
+
+.search-form input[type="date"]:focus::-webkit-calendar-picker-indicator {
+  filter: brightness(0) saturate(100%) invert(29%) sepia(96%) saturate(3200%)
+    hue-rotate(214deg) brightness(95%) contrast(95%);
+}
+
+/* Modern Calendar Popup - Uses CSS custom properties */
+.search-form input[type="date"] {
+  color-scheme: light;
+}
+
+/* Calendar popup customization */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="%232563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+}
+
+/* Style for calendar dates - focus states */
+input[type="date"]::-webkit-datetime-edit-month-field:focus,
+input[type="date"]::-webkit-datetime-edit-day-field:focus,
+input[type="date"]::-webkit-datetime-edit-year-field:focus {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-radius: 6px;
+  outline: none;
+  padding: 2px 4px;
+}
+
+/* Custom styling for the calendar panel (limited browser support) */
+.search-form input[type="date"] {
+  accent-color: #2563eb;
+}
+
+/* Attempt to style calendar popup with webkit (very limited support) */
+::-webkit-datetime-edit {
+  padding: 2px;
+}
+
+::-webkit-datetime-edit-fields-wrapper {
+  background: transparent;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+/* These styles attempt to customize the calendar dropdown (browser support varies) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+input[type="date"]:hover::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+input[type="date"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* REACT-DATEPICKER CUSTOM STYLES */
+.date-picker-input {
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1.8px solid #d1d5db;
+  font-size: 14px;
+  color: #111827;
+  background-color: #ffffff;
+  transition: all 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+  width: 100%;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.date-picker-input:hover {
+  border-color: #60a5fa;
+}
+
+.date-picker-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background-color: #ffffff;
+}
+
+/* Custom Calendar Popup */
+.custom-calendar {
+  border-radius: 16px !important;
+  border: 2px solid #e5e7eb !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+  font-family: inherit !important;
+  overflow: hidden !important;
+}
+
+.react-datepicker {
+  border-radius: 16px !important;
+  border: none !important;
+  font-family: inherit !important;
+}
+
+.react-datepicker__header {
+  background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+  border-bottom: none !important;
+  border-radius: 16px 16px 0 0 !important;
+  padding: 16px 0 !important;
+}
+
+.react-datepicker__current-month {
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.react-datepicker__day-name {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  width: 36px !important;
+  line-height: 36px !important;
+}
+
+.react-datepicker__day {
+  width: 36px !important;
+  line-height: 36px !important;
+  margin: 4px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #111827 !important;
+  transition: all 0.2s !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: #dbeafe !important;
+  border-radius: 8px !important;
+  color: #1e40af !important;
+}
+
+.react-datepicker__day--selected {
+  background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+  border-radius: 8px !important;
+}
+
+.react-datepicker__day--today {
+  font-weight: 700 !important;
+  color: #2563eb !important;
+  border: 2px solid #2563eb !important;
+}
+
+.react-datepicker__day--disabled {
+  color: #d1d5db !important;
+  cursor: not-allowed !important;
+}
+
+.react-datepicker__day--disabled:hover {
+  background-color: transparent !important;
+}
+
+.react-datepicker__navigation {
+  top: 18px !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: white !important;
+  border-width: 2px 2px 0 0 !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.react-datepicker__navigation:hover *::before {
+  border-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.react-datepicker__month {
+  margin: 12px !important;
+}
+
+.react-datepicker__triangle {
+  display: none !important;
 }
 
 .search-form input::placeholder {
@@ -78,7 +440,6 @@
 
 /* FILTER BUTTON */
 .filter-btn {
-  margin-top: 30px;
   background: linear-gradient(135deg, #2563eb, #1e40af);
   color: white;
   border: none;
@@ -88,6 +449,10 @@
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* BUTTON HOVER */
@@ -99,4 +464,198 @@
 /* BUTTON ACTIVE */
 .filter-btn:active {
   transform: translateY(0);
+}
+
+/* CLEAR FILTERS BUTTON */
+.clear-filters-btn {
+  width: 100%;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.clear-filters-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.35);
+}
+
+.clear-filters-btn:active {
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .search-form {
+    padding: 20px 16px;
+  }
+
+  .search-form h2 {
+    font-size: 18px;
+  }
+
+  .main-search-bar {
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .search-query-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  .toggle-filters-btn {
+    flex-shrink: 0;
+    min-width: 47px;
+  }
+
+  /* Mobile: Custom grid layout */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Row 1: Property Type (full width) */
+  .form-grid > .form-group:nth-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  /* Row 2: Min Price, Max Price (2 columns) */
+  .form-grid > .form-group:nth-child(2) {
+    grid-column: 1 / 2;
+  }
+  .form-grid > .form-group:nth-child(3) {
+    grid-column: 2 / 3;
+  }
+
+  /* Row 3: Min Bedrooms, Max Bedrooms (2 columns) */
+  .form-grid > .form-group:nth-child(4) {
+    grid-column: 1 / 2;
+  }
+  .form-grid > .form-group:nth-child(5) {
+    grid-column: 2 / 3;
+  }
+
+  /* Row 4: Date From, Date To (2 columns) */
+  .form-grid > .form-group:nth-child(6) {
+    grid-column: 1 / 2;
+  }
+  .form-grid > .form-group:nth-child(7) {
+    grid-column: 2 / 3;
+  }
+
+  /* Row 5: Postcode (full width) */
+  .form-grid > .form-group:nth-child(8) {
+    grid-column: 1 / -1;
+  }
+
+  .search-form label {
+    font-size: 12px;
+  }
+
+  .search-form input,
+  .search-form select,
+  .date-picker-input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .clear-filters-btn {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  /* Mobile DatePicker Adjustments */
+  .react-datepicker-popper {
+    z-index: 9999 !important;
+  }
+
+  .custom-calendar {
+    transform: scale(0.85) !important;
+    transform-origin: top center !important;
+  }
+
+  .react-datepicker {
+    font-size: 12px !important;
+  }
+
+  .react-datepicker__header {
+    padding: 12px 0 !important;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .react-datepicker__day-name {
+    font-size: 11px !important;
+    width: 30px !important;
+    line-height: 30px !important;
+  }
+
+  .react-datepicker__day {
+    width: 30px !important;
+    line-height: 30px !important;
+    margin: 2px !important;
+    font-size: 12px !important;
+  }
+
+  .react-datepicker__navigation {
+    top: 14px !important;
+  }
+
+  .react-datepicker__month {
+    margin: 8px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-form {
+    padding: 16px 12px;
+  }
+
+  .main-search-bar {
+    gap: 6px;
+  }
+
+  .filter-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  /* Extra small mobile - even smaller datepicker */
+  .custom-calendar {
+    transform: scale(0.75) !important;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 13px !important;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    width: 28px !important;
+    line-height: 28px !important;
+    font-size: 11px !important;
+  }
 }

@@ -1,72 +1,177 @@
 /* ===== Body / Background ===== */
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: "Inter", "Segoe UI", "Roboto", sans-serif;
-  background: linear-gradient(135deg, #f0f4f8, #ffffff); /* soft gradient */
+  background-color: #ffffff;
   color: #111827;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 500px;
+  background-image: url("/images/Gemini_Generated_Image_1fexm31fexm31fex.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 500px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.4) 40%,
+    rgba(255, 255, 255, 0.8) 70%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 /* ===== Main App Container ===== */
 .app-container {
-  max-width: 1300px; /* content width */
-  margin: 0 auto; /* center */
-  padding: 20px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 /* ===== Search Section ===== */
 .search-section {
   width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 /* ===== Results Count Badge ===== */
 .results-count {
   font-size: 16px;
+  font-family: Arial;
   font-weight: 600;
   color: #111827;
-  margin: 15px 0 25px;
+  margin: 12px 0 20px;
   display: inline-block;
-  padding: 10px 15px;
-  background-color: #f1f5f9; /* subtle background for badge */
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* soft shadow */
-}
-
-.results-count strong {
-  color: #2563eb; /* highlight the number */
+  padding: 8px 12px;
 }
 
 /* ===== Content Section: Property List + Favourites ===== */
 .content-section {
   display: flex;
   gap: 20px;
-  flex-wrap: wrap; /* allows responsive stacking */
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Property List Column (wide) */
 .propertylist-column {
-  flex: 3 1 600px; /* grow, shrink, min width 600px */
+  flex: 1 1 auto; /* take remaining space */
+  min-width: 0; /* allow shrinking without overflow */
 }
 
 /* ===== Favourites Column ===== */
 .favourites-column {
-  flex: 1 1 300px;
-  max-width: 300px;
-
+  flex: 0 0 320px;
+  max-width: 320px;
+  width: 320px;
   position: sticky; /* Makes it stick when scrolling */
-  top: 70px; /* Distance from top of viewport (adjust to your header height) */
+  top: 70px; /* adjust to your header height if needed */
   align-self: flex-start; /* ensures it starts at top of column */
 }
 
 /* ===== Responsive ===== */
+@media (max-width: 1200px) {
+  .app-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* tablets: allow favourites to reduce and stack if needed */
+  .favourites-column {
+    flex: 0 0 280px;
+    max-width: 280px;
+    width: 280px;
+  }
+
+  .content-section {
+    gap: 16px;
+  }
+}
+
 @media (max-width: 768px) {
+  .app-container {
+    padding: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   .content-section {
     flex-direction: column;
+    gap: 20px;
+    padding-right: 0;
   }
 
   .propertylist-column,
   .favourites-column {
     max-width: 100%;
+    width: 100%;
+    flex: 1 1 auto;
+    position: static; /* remove sticky on small screens */
+    top: auto;
+    padding-right: 0;
+  }
+
+  .results-count {
+    margin: 10px 0;
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .search-section {
+    margin-bottom: 16px;
+  }
+
+  .content-section {
+    gap: 16px;
   }
 }

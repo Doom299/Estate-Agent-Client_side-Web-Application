@@ -114,3 +114,41 @@
   font-size: 20px;
   padding: 40px;
 }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .property-page {
+    padding: 20px 16px;
+  }
+
+  .property-title {
+    font-size: 24px;
+  }
+
+  .property-location {
+    font-size: 14px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .book-btn,
+  .fav-toggle-btn {
+    width: 100%;
+    padding: 14px 18px;
+  }
+
+  .map-frame {
+    height: 300px;
+  }
+
+  .floor-plan {
+    max-width: 100%;
+  }
+
+  .description-text {
+    font-size: 15px;
+  }
+}

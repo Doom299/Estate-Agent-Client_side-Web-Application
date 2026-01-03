@@ -1,23 +1,15 @@
 import { Link } from "react-router-dom";
+import "../styles/Header.css";
 
 function Header() {
   return (
-    <header
-      style={{
-        backgroundColor: "#007bff",
-        color: "white",
-        padding: "15px 20px",
-        marginBottom: "20px",
-      }}
-    >
-      <h1>
-        <Link
-          to="/" // Link to home page
-          style={{ color: "white", textDecoration: "none" }}
-        >
-          🏡 My Property Portal
+    <header className="header">
+      <div className="header-container">
+        {/* Logo / Title */}
+        <Link to="/" className="logo">
+          My Property Portal
         </Link>
-      </h1>
+      </div>
     </header>
   );
 }
