@@ -1,11 +1,15 @@
 .header {
   width: 100%;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .header-container {
@@ -20,16 +24,21 @@
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   color: white;
   text-decoration: none;
   letter-spacing: -0.5px;
   transition: all 0.3s ease;
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .logo:hover {
-  color: beige;
+  transform: scale(1.02);
+  filter: brightness(1.1);
 }
 
 .nav a {

@@ -4,6 +4,66 @@
   gap: 25px;
 }
 
+/* ===== Empty State ===== */
+.no-properties-container {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px 20px;
+}
+
+.no-properties-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.no-properties-icon {
+  color: #00060c;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.no-properties-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+}
+
+.no-properties-text {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0 0 8px 0;
+  line-height: 1.6;
+}
+
+.no-properties-suggestion {
+  font-size: 15px;
+  color: #9ca3af;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+.no-properties-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+.no-properties-btn:hover {
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
 /* TABLET */
 @media (max-width: 1024px) {
   .property-grid {
@@ -77,7 +137,7 @@
 /* IMAGE */
 .property-image {
   width: 100%;
-  height: 240px;
+  height: 260px;
   object-fit: cover;
   border-radius: 14px 14px 0 0;
   background-color: #f1f5f9;
@@ -155,7 +215,8 @@
 
 /* CONTENT */
 .property-content {
-  padding: 20px;
+  margin-top: -30px;
+  padding: 10px;
 }
 
 .property-content h3 {
@@ -192,7 +253,7 @@
   line-height: 1.6;
   margin-bottom: 16px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

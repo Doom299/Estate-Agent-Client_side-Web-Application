@@ -7,7 +7,7 @@ function Header() {
       <div className="header-container">
         {/* Logo / Title */}
         <Link to="/" className="logo">
-          My Property Portal
+          Estate Agent App
         </Link>
       </div>
     </header>

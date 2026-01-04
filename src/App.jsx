@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import propertyData from "./data/properties.json";
 import SearchForm from "./components/SearchForm";
 import PropertyList from "./components/PropertyList";
 import Favourites from "./components/Favourites";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import PropertyPage from "./components/PropertyPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   const [properties] = useState(propertyData.properties);
@@ -74,10 +84,17 @@ function App() {
     setFavourites([]);
   };
 
+  // CLEAR ALL FILTERS
+  const clearFilters = () => {
+    setFilteredProperties(properties);
+  };
+
   return (
-    <>
+    <div className="page-shell">
+      <ScrollToTop />
       <Header />
-      <div className="app-container">
+
+      <main className="app-container">
         <Routes>
           <Route
             path="/"
@@ -101,6 +118,7 @@ function App() {
                       onAddFavourite={addToFavourites}
                       onRemoveFavourite={removeFromFavourites}
                       onDragStart={setDraggedProperty}
+                      onClearFilters={clearFilters}
                     />
                   </div>
 
@@ -133,9 +151,10 @@ function App() {
             }
           />
         </Routes>
-      </div>
+      </main>
+
       <Footer />
-    </>
+    </div>
   );
 }
 

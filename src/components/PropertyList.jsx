@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/PropertyList.css";
-import { Heart, Trash2, X } from "lucide-react";
+import { Heart, Trash2, X, Search } from "lucide-react";
 import { useState } from "react";
 
 function PropertyList({
@@ -9,11 +9,28 @@ function PropertyList({
   onAddFavourite,
   onRemoveFavourite,
   onDragStart,
+  onClearFilters,
 }) {
   const [addedNotification, setAddedNotification] = useState(null);
 
   if (properties.length === 0) {
-    return <p>No properties found.</p>;
+    return (
+      <div className="no-properties-container">
+        <div className="no-properties-content">
+          <Search size={64} className="no-properties-icon" />
+          <h2 className="no-properties-title">No Properties Found</h2>
+          <p className="no-properties-text">
+            We couldn't find any properties matching your search criteria.
+          </p>
+          <p className="no-properties-suggestion">
+            Try adjusting your filters or search terms to find your dream home.
+          </p>
+          <button onClick={onClearFilters} className="no-properties-btn">
+            Clear Filters & Try Again
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const isFavourite = (propId) => {
