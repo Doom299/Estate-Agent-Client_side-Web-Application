@@ -64,7 +64,7 @@ function SearchForm({ onFilter }) {
           <input
             type="text"
             name="searchQuery"
-            placeholder="Search by location or description..."
+            placeholder="Enter location, postcode, or property description..."
             value={filters.searchQuery}
             onChange={handleChange}
           />
@@ -86,6 +86,8 @@ function SearchForm({ onFilter }) {
       {isExpanded && (
         <div className="advanced-filters">
           <div className="form-grid">
+            
+
             <div className="form-group">
               <label>Property Type</label>
               <select name="type" value={filters.type} onChange={handleChange}>
@@ -100,6 +102,7 @@ function SearchForm({ onFilter }) {
               <input
                 type="number"
                 name="minPrice"
+                placeholder="e.g., 500"
                 value={filters.minPrice}
                 onChange={handleChange}
               />
@@ -110,6 +113,7 @@ function SearchForm({ onFilter }) {
               <input
                 type="number"
                 name="maxPrice"
+                placeholder="e.g., 5000"
                 value={filters.maxPrice}
                 onChange={handleChange}
               />
@@ -120,6 +124,7 @@ function SearchForm({ onFilter }) {
               <input
                 type="number"
                 name="minBedrooms"
+                placeholder="e.g., 1"
                 value={filters.minBedrooms}
                 onChange={handleChange}
               />
@@ -130,6 +135,7 @@ function SearchForm({ onFilter }) {
               <input
                 type="number"
                 name="maxBedrooms"
+                placeholder="e.g., 5"
                 value={filters.maxBedrooms}
                 onChange={handleChange}
               />
@@ -139,9 +145,9 @@ function SearchForm({ onFilter }) {
               <label>Date From</label>
               <DatePicker
                 selected={filters.dateFrom}
-                onChange={(date) => handleDateChange(date, "dateFrom")}
+                onChange={(date) => handleDateChange(date, 'dateFrom')}
                 dateFormat="dd/MM/yyyy"
-                placeholderText="dd/MM/yyyy"
+                placeholderText="Select start date"
                 className="date-picker-input"
                 calendarClassName="custom-calendar"
               />
@@ -151,9 +157,9 @@ function SearchForm({ onFilter }) {
               <label>Date To</label>
               <DatePicker
                 selected={filters.dateTo}
-                onChange={(date) => handleDateChange(date, "dateTo")}
+                onChange={(date) => handleDateChange(date, 'dateTo')}
                 dateFormat="dd/MM/yyyy"
-                placeholderText="dd/MM/yyyy"
+                placeholderText="Select end date"
                 className="date-picker-input"
                 calendarClassName="custom-calendar"
                 minDate={filters.dateFrom}
@@ -165,12 +171,15 @@ function SearchForm({ onFilter }) {
               <input
                 type="text"
                 name="postcode"
-                placeholder="e.g., BR1, BR5"
+                placeholder="Enter postcode (e.g., BR1, SW1A)"
                 value={filters.postcode}
                 onChange={handleChange}
               />
             </div>
+
           </div>
+
+          
 
           <button
             type="button"

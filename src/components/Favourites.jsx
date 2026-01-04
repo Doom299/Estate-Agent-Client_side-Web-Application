@@ -17,14 +17,14 @@ function Favourites({
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
-
+      
       // Check if near bottom (within 100px)
       const nearBottom = windowHeight + scrollTop >= documentHeight - 100;
       setIsAtBottom(nearBottom);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleModal = () => {
@@ -47,7 +47,7 @@ function Favourites({
     <>
       {/* Floating Heart Button - Mobile Only */}
       <button
-        className={`floating-heart-btn ${isAtBottom ? "hidden" : ""}`}
+        className={`floating-heart-btn ${isAtBottom ? 'hidden' : ''}`}
         onClick={toggleModal}
         onDragOver={handleFloatingDragOver}
         onDrop={handleFloatingDrop}
@@ -67,7 +67,7 @@ function Favourites({
           >
             <div className="modal-header">
               <h2 className="favourites-header">
-                <Heart size={20} className="header-icon" /> Favourites
+                <Heart size={20} className="header-icon" /> Favourites 
                 <span className="favourites-count">{favourites.length}</span>
               </h2>
               <button className="close-modal-btn" onClick={toggleModal}>
@@ -78,15 +78,13 @@ function Favourites({
             <div className="modal-body">
               {favourites.length === 0 && (
                 <p className="favourites-empty">
-                  Drag properties to the{" "}
-                  <Heart size={16} className="inline-icon" /> icon to add
-                  favourites
+                  Drag properties to the <Heart size={16} className="inline-icon" /> icon to add favourites
                 </p>
               )}
 
               {favourites.map((prop) => (
-                <div
-                  key={prop.id}
+                <div 
+                  key={prop.id} 
                   className="favourite-item"
                   draggable
                   onDragStart={(e) => {
@@ -96,9 +94,7 @@ function Favourites({
                   onDragEnd={(e) => {
                     e.currentTarget.classList.remove("dragging");
                     // Check if dragged outside modal
-                    const modalContent = document.querySelector(
-                      ".favourites-modal-content"
-                    );
+                    const modalContent = document.querySelector(".favourites-modal-content");
                     const rect = modalContent.getBoundingClientRect();
                     if (
                       e.clientX < rect.left ||
@@ -113,10 +109,7 @@ function Favourites({
                   <p className="favourite-title">
                     {prop.type} – £{prop.price.toLocaleString()}
                   </p>
-                  <button
-                    className="remove-btn"
-                    onClick={() => onRemove(prop.id)}
-                  >
+                  <button className="remove-btn" onClick={() => onRemove(prop.id)}>
                     <Trash2 size={16} />
                   </button>
                 </div>
@@ -150,10 +143,7 @@ function Favourites({
                 <p className="favourite-title-compact">
                   {prop.type} – £{prop.price.toLocaleString()}
                 </p>
-                <button
-                  className="remove-btn-compact"
-                  onClick={() => onRemove(prop.id)}
-                >
+                <button className="remove-btn-compact" onClick={() => onRemove(prop.id)}>
                   <X size={14} />
                 </button>
               </div>

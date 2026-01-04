@@ -6,7 +6,7 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-section footer-brand">
           <h3 className="footer-title">Estate Agent App</h3>
-          <p className="footer-tagline">Find your dream home with Us.</p>
+          <p className="footer-tagline">Your trusted partner in finding the perfect property.</p>
         </div>
 
         <div className="footer-section footer-links">
@@ -17,7 +17,7 @@ function Footer() {
         </div>
 
         <div className="footer-section footer-connect">
-          <h4 className="footer-section-title">Connect</h4>
+          <h4 className="footer-section-title">Contact</h4>
           <div className="footer-socials">
             <a href="#facebook" aria-label="Facebook" className="social-link">
               <Facebook size={20} />
@@ -29,9 +29,7 @@ function Footer() {
               <Mail size={20} />
             </a>
           </div>
-          <p className="footer-copyright">
-            &copy; 2026 Estate Agent App. All rights reserved.
-          </p>
+          <p className="footer-copyright">&copy; 2026 Estate Agent App. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -3,14 +3,7 @@ import "../styles/PropertyList.css";
 import { Heart, Trash2, X, Search } from "lucide-react";
 import { useState } from "react";
 
-function PropertyList({
-  properties,
-  favourites,
-  onAddFavourite,
-  onRemoveFavourite,
-  onDragStart,
-  onClearFilters,
-}) {
+function PropertyList({ properties, favourites, onAddFavourite, onRemoveFavourite, onDragStart, onClearFilters }) {
   const [addedNotification, setAddedNotification] = useState(null);
 
   if (properties.length === 0) {
@@ -67,17 +60,11 @@ function PropertyList({
               className="property-image"
             />
             <button
-              className={`property-heart-btn ${
-                isFavourite(prop.id) ? "active" : ""
-              } ${addedNotification === prop.id ? "show-notification" : ""}`}
+              className={`property-heart-btn ${isFavourite(prop.id) ? 'active' : ''} ${addedNotification === prop.id ? 'show-notification' : ''}`}
               onClick={(e) => handleHeartClick(e, prop)}
             >
-              <Heart
-                fill={isFavourite(prop.id) ? "#ef4444" : "white"}
-                color={isFavourite(prop.id) ? "#ef4444" : "#64748b"}
-                size={20}
-              />
-              <span className="added-notification">Added </span>
+              <Heart fill={isFavourite(prop.id) ? '#ef4444' : 'white'} color={isFavourite(prop.id) ? '#ef4444' : '#64748b'} size={20} />
+              <span className="added-notification">Added  </span>
             </button>
           </div>
 
@@ -93,7 +80,9 @@ function PropertyList({
             </p>
 
             {prop["short-description"] && (
-              <p className="property-short-desc">{prop["short-description"]}</p>
+              <p className="property-short-desc">
+                {prop["short-description"]}
+              </p>
             )}
 
             <div className="property-actions">

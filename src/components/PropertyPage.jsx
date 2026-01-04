@@ -85,33 +85,25 @@ function PropertyPage({
           <div className="property-details mobile-only">
             <div className="detail-item">
               <Bed size={20} />
-              <span>
-                <strong>{property.bedrooms}</strong> Bedrooms
-              </span>
+              <span><strong>{property.bedrooms}</strong> Bedrooms</span>
             </div>
             <div className="detail-item">
-              <span>
-                <strong>Tenure:</strong> {property.tenure}
-              </span>
+              <span><strong>Tenure:</strong> {property.tenure}</span>
             </div>
           </div>
 
           <div className="description-container">
             <p className="description-text">{property.description}</p>
-
+            
             {/* Desktop: Property Details Sidebar */}
             <div className="property-details desktop-only">
               <h3>Property Details</h3>
               <div className="detail-item">
                 <Bed size={20} />
-                <span>
-                  <strong>{property.bedrooms}</strong> Bedrooms
-                </span>
+                <span><strong>{property.bedrooms}</strong> Bedrooms</span>
               </div>
               <div className="detail-item">
-                <span>
-                  <strong>Tenure:</strong> {property.tenure}
-                </span>
+                <span><strong>Tenure:</strong> {property.tenure}</span>
               </div>
             </div>
           </div>

@@ -31,7 +31,23 @@ function App() {
   // FILTER FUNCTION
   const handleFilter = (filters) => {
     const searchText = (filters.searchQuery || "").trim().toUpperCase();
-    const postcodeText = (filters.postcode || "").trim().toUpperCase();
+
+    // Postcode search: only use the part after the last space.
+    const rawPostcode = (filters.postcode || "").trim().toUpperCase();
+    let postcodeText = "";
+    if (rawPostcode) {
+      const parts = rawPostcode.split(/\s+/);
+      const lastToken = parts[parts.length - 1];
+      const postcodePattern = /^[A-Z]{2}\d{1,2}$/;
+
+      if (postcodePattern.test(lastToken)) {
+        postcodeText = lastToken;
+      } else {
+        // User typed words but not a valid postcode area → no matches
+        setFilteredProperties([]);
+        return;
+      }
+    }
 
     const result = properties.filter((prop) => {
       const propDate = new Date(

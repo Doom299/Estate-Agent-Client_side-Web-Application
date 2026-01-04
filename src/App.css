@@ -23,7 +23,7 @@ body::before {
   left: 0;
   right: 0;
   height: 500px;
-  background-image: url("/images/Gemini_Generated_Image_1fexm31fexm31fex.png");
+  background-image: url("/images/bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -222,11 +222,12 @@ body::after {
   display: grid;
   place-items: center;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
 .social-link:hover {
   background: #2563eb;
+  color: #60a5fa;
   transform: translateY(-2px);
 }
 

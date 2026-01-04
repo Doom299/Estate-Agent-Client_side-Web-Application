@@ -11,7 +11,7 @@
 }
 
 .property-page::before {
-  content: "";
+  content: '';
   position: fixed;
   top: 0;
   left: 0;
@@ -41,7 +41,7 @@
 }
 
 .property-title {
-  font-size: 32px;
+  font-size: 35px;
   font-weight: 700;
   margin-bottom: 8px;
 }
@@ -49,6 +49,7 @@
 .property-location {
   color: #6b7280;
   margin-bottom: 20px;
+  font-size: 17px;
 }
 
 /* VISIBILITY HELPERS */
@@ -252,6 +253,7 @@
   border-radius: 10px;
   border: 1px solid #e5e7eb;
   flex: 3;
+  font-size: 16px;
 }
 
 /* PROPERTY DETAILS */
